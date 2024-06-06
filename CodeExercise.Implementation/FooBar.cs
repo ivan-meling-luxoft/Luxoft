@@ -10,7 +10,31 @@ public class FooBar
     /// <returns></returns>
     public IEnumerable<string> CalculateFooBar(int start, int finish)
     {
-        throw new NotImplementedException();
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(start, 0);
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(start, finish);
+
+        return Enumerable.Range(start, finish - start + 1).Select(i =>
+        {
+            var multipleOfThree = i % 3 == 0;
+            var multipleOfFive = i % 5 == 0;
+
+            var textToPrint = string.Empty;
+
+            if (multipleOfThree)
+            {
+                textToPrint = "foo";
+            }
+            if (multipleOfFive)
+            {
+                textToPrint += "bar";
+            }
+            if (textToPrint == string.Empty)
+            {
+                textToPrint = i.ToString();
+            }
+
+            return textToPrint;
+        });
     }
 }
 
